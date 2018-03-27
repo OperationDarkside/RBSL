@@ -85,6 +85,23 @@ std::string read_file (const std::string& filename) {
 	return content;
 }
 
+void write_file (const std::string& filename, const std::vector<unsigned char>& data) {
+	std::ofstream output;
+
+	output.open (filename, std::ios::binary);
+
+	if (!output.is_open()) {
+		std::cout << "Output file not open";
+		return;
+	}
+
+	const char* signed_data = reinterpret_cast<const char*>(data.data ());
+
+	output.write(signed_data, data.size());
+
+	output.close ();
+}
+
 std::string clean_content (const std::string& content) {
 	bool is_string = false;
 	size_t len = content.size ();
@@ -516,6 +533,8 @@ int main () {
 	// FUNC  : 2 Bytes Function Type + 2 Bytes Temporary Return Value Pointer + ParameterCount * (1 Byte Pointer Type + 2 Bytes Pointer)
 
 	std::vector<unsigned char> byte_code = to_byte_code (compiled_cmds);
+
+	write_file ("new_script.bc", byte_code);
 
 	/*std::string line;
 	std::ifstream input;

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RBSL", "RBSL\RBSL.vcxproj", "{6D5B985E-8F58-481A-9236-C5CF1E1AAF39}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RbslVM", "RbslVM\RbslVM.vcxproj", "{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{6D5B985E-8F58-481A-9236-C5CF1E1AAF39}.Release|x64.Build.0 = Release|x64
 		{6D5B985E-8F58-481A-9236-C5CF1E1AAF39}.Release|x86.ActiveCfg = Release|Win32
 		{6D5B985E-8F58-481A-9236-C5CF1E1AAF39}.Release|x86.Build.0 = Release|Win32
+		{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}.Debug|x64.ActiveCfg = Debug|x64
+		{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}.Debug|x64.Build.0 = Debug|x64
+		{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}.Debug|x86.ActiveCfg = Debug|Win32
+		{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}.Debug|x86.Build.0 = Debug|Win32
+		{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}.Release|x64.ActiveCfg = Release|x64
+		{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}.Release|x64.Build.0 = Release|x64
+		{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}.Release|x86.ActiveCfg = Release|Win32
+		{A69C9F7B-DF10-4477-9C6B-0BAFB1492D52}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
