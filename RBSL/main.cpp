@@ -463,7 +463,7 @@ std::vector<unsigned char> to_byte_code (std::vector<CompiledCmd>& cmds) {
 			res.push_back (static_ptr[0]);
 			res.push_back (static_ptr[1]);
 
-			std::array<unsigned char, sizeof (unsigned short)> tmp_ptr = u_short_to_u_char (cmd.tmp_ptr);
+			std::array<unsigned char, sizeof (unsigned short)> tmp_ptr = u_short_to_u_char (cmd.vars[0].ptr);
 			res.push_back (tmp_ptr[0]);
 			res.push_back (tmp_ptr[1]);
 		}

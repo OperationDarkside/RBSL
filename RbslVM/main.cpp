@@ -4,6 +4,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <array>
+#include <functional>
 
 enum CmdType {
 	RETURN,
@@ -21,6 +22,12 @@ class var_ptr {
 public:
 	PtrType type;
 	unsigned short ptr = 0;
+};
+
+class variable {
+public:
+	unsigned short ptr = 0;
+	std::string value;
 };
 
 class CompiledCmd {
@@ -163,6 +170,70 @@ std::vector<CompiledCmd> bytecode_to_cmds (std::vector<unsigned char>& byte_code
 	return res;
 }
 
+void execute (std::vector<CompiledCmd>& cmds) {
+	std::unordered_map<unsigned short, std::string> tmp_vars;
+	std::unordered_map<unsigned short, std::string> static_vars;
+	std::unordered_map<unsigned short, std::function<void (std::vector<std::string>&, unsigned short)>> funcs;
+
+	// Concat
+	funcs.emplace (1, [&] (std::vector<std::string>& vars, unsigned short res_ptr) {
+		std::string res_str;
+		
+		for (std::string& str : vars) {
+			res_str += str;
+		}
+
+		tmp_vars.emplace (res_ptr, res_str);
+	});
+	// Print
+	funcs.emplace (2, [] (std::vector<std::string>& vars, unsigned short res_ptr) {
+		std::cout << vars[0];
+	});
+
+	for (auto& cmd : cmds) {
+		switch (cmd.type) {
+		case CmdType::RETURN:
+		{
+			tmp_vars.emplace (cmd.tmp_ptr, cmd.return_content);
+		}
+		break;
+		case CmdType::ASSIGN:
+		{
+			std::string& str = tmp_vars.at (cmd.tmp_ptr);
+
+			static_vars.emplace (cmd.static_ptr, str);
+		}
+		break;
+		case CmdType::FUNC:
+		{
+			std::vector<std::string> vars;
+
+			for (auto& cmd_var: cmd.vars) {
+				switch (cmd_var.type) {
+				case PtrType::TEMPORARY:
+					vars.push_back (tmp_vars.at(cmd_var.ptr));
+					break;
+				case PtrType::STATIC:
+					vars.push_back (static_vars.at (cmd_var.ptr));
+					break;
+				default:
+					throw "Function: Variable Type not found";
+					break;
+				}
+			}
+
+			std::function<void (std::vector<std::string>&, unsigned short)>& fun = funcs.at (cmd.func_id);
+
+			fun (vars, cmd.tmp_ptr);
+		}
+		break;
+		default:
+			throw "Unknown command type";
+			break;
+		}
+	}
+}
+
 int main () {
 
 	std::vector<char> file_content = read_file ("new_script.bc");
@@ -174,6 +245,10 @@ int main () {
 	std::vector<unsigned char> byte_code (file_content.begin (), file_content.end ());
 
 	std::vector<CompiledCmd> cmds = bytecode_to_cmds (byte_code);
+
+	execute (cmds);
+
+	system ("pause");
 
 	return 0;
 }
