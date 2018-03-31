@@ -14,3 +14,18 @@ There are only two functions at the moment:
 - Variables start with a #
 - Functions start with a $
 - Classes would start with a @ (if I'd have implemented them)
+
+## Order of operation
+
+### RBSL:
+- Read file
+- Parse contents
+- Compile (Parsed commands to something like bytecode)
+- Write bytecode to file
+
+### RbslVM:
+- Read file
+- Parse bytecode
+- Execute parsed bytecode
+- ...
+- Profit
