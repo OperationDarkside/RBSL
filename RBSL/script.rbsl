@@ -1,5 +1,5 @@
-#fickdich = "undhaltsmaulus ggg gg";
-#lol = "bla";
+#test = "Hello ";
+#lol = "World";
 
-#mockup = $concat(#fickdich, #lol);
+#mockup = $concat(#test, #lol);
 $print(#mockup);
